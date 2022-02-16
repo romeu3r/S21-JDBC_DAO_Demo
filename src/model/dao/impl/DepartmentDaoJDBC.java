@@ -30,8 +30,7 @@ public class DepartmentDaoJDBC implements DepartmentDao {
             int rowsAffected = st.executeUpdate();
             if (rowsAffected > 0) {
                 rs = st.getGeneratedKeys();
-                if (rs.next())
-                    obj.setId(rs.getInt(1));
+                if (rs.next()) obj.setId(rs.getInt(1));
             } else throw new DbException("Error on insert data about Department, please check it!");
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
@@ -48,6 +47,23 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void deleteById(Integer id) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("DELETE FROM `coursejdbc`.`department` WHERE (`Id` = ?);");
+            st.setInt(1, id);
+
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0)
+                System.out.println("Department excluded successful.");
+            else
+                System.out.println("Maybe Department id: " + id + " nothing exist! Please check that.");
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override

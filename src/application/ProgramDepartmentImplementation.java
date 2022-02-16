@@ -22,8 +22,12 @@ public class ProgramDepartmentImplementation {
 
         System.out.println("=== TEST 3: Department Inset ===");
         dp = new Department(null, "Novo DP");
-        departmentDao.insert(dp);
+//        departmentDao.insert(dp);
         System.out.println(dp);
+
+        System.out.println("=== TEST 3: Department Inset ===");
+        departmentDao.deleteById(12);
+
 
         sc.close();
     }
