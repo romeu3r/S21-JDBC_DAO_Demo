@@ -6,10 +6,7 @@ import model.dao.DepartmentDao;
 import model.entities.Department;
 import model.entities.Seller;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -24,7 +21,24 @@ public class DepartmentDaoJDBC implements DepartmentDao {
 
     @Override
     public void insert(Department obj) {
+        PreparedStatement st = null;
+        ResultSet rs = null;
+        try {
+            st = conn.prepareStatement("INSERT INTO `coursejdbc`.`department` (`Name`) VALUES (?)", Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, obj.getName());
 
+            int rowsAffected = st.executeUpdate();
+            if (rowsAffected > 0) {
+                rs = st.getGeneratedKeys();
+                if (rs.next())
+                    obj.setId(rs.getInt(1));
+            } else throw new DbException("Error on insert data about Department, please check it!");
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(st);
+            DB.closeResultSet(rs);
+        }
     }
 
     @Override

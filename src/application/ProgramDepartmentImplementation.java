@@ -12,13 +12,19 @@ public class ProgramDepartmentImplementation {
         DepartmentDao departmentDao = DaoFactory.createDepartmentDao();
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("=== TEST 1: Seller findById ===");
+        System.out.println("=== TEST 1: Department findById ===");
         Department dp = departmentDao.findById(2);
         System.out.println(dp);
 
-        System.out.println("=== TEST 2: Seller findAll ===");
+        System.out.println("=== TEST 2: Department findAll ===");
         List<Department> findAll = departmentDao.findAll();
         findAll.forEach(System.out::println);
+
+        System.out.println("=== TEST 3: Department Inset ===");
+        dp = new Department(null, "Novo DP");
+        departmentDao.insert(dp);
+        System.out.println(dp);
+
         sc.close();
     }
 }
