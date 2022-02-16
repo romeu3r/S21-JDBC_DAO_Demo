@@ -4,6 +4,7 @@ import model.dao.DaoFactory;
 import model.dao.DepartmentDao;
 import model.entities.Department;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class ProgramDepartmentImplementation {
@@ -15,6 +16,9 @@ public class ProgramDepartmentImplementation {
         Department dp = departmentDao.findById(2);
         System.out.println(dp);
 
+        System.out.println("=== TEST 2: Seller findAll ===");
+        List<Department> findAll = departmentDao.findAll();
+        findAll.forEach(System.out::println);
         sc.close();
     }
 }
