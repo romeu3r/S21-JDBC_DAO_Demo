@@ -16,19 +16,23 @@ public class ProgramDepartmentImplementation {
         Department dp = departmentDao.findById(2);
         System.out.println(dp);
 
-        System.out.println("=== TEST 2: Department findAll ===");
+        System.out.println("\n=== TEST 2: Department findAll ===");
         List<Department> findAll = departmentDao.findAll();
         findAll.forEach(System.out::println);
 
-        System.out.println("=== TEST 3: Department Inset ===");
+        System.out.println("\n=== TEST 3: Department Inset ===");
         dp = new Department(null, "Novo DP");
 //        departmentDao.insert(dp);
         System.out.println(dp);
 
-        System.out.println("=== TEST 3: Department Inset ===");
-        departmentDao.deleteById(12);
+        System.out.println("\n=== TEST 4: Department deleteById ===");
+//        departmentDao.deleteById(12);
 
-
+        System.out.println("\n=== TEST 5: Department update ===");
+        dp = departmentDao.findById(6);
+        dp.setName("DP - Test");
+        departmentDao.update(dp);
+        System.out.println("Changed name ok!");
         sc.close();
     }
 }
